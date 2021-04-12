@@ -6,15 +6,17 @@ import { fifaData } from './fifa.js';
 Practice accessing data by console.log-ing the following pieces of data note, you may want to filter the data first 😉*/
 
 //(a) Home Team name for 2014 world cup final
+let set = fifaData.filter(i => i.Year === 2014 && i.Stage === 'Final');
 
+console.log(set.map(i => i['Home Team Name']));
 //(b) Away Team name for 2014 world cup final
-
+console.log(set.map(i => i['Away Team Name']));
 //(c) Home Team goals for 2014 world cup final
-
+console.log(set.map(i => i['Home Team Goals']));
 //(d) Away Team goals for 2014 world cup final
-
+console.log(set.map(i => i['Away Team Goals']));
 //(e) Winner of 2014 world cup final */
-
+console.log(set.map(i => i['Away Team Name']));
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
 Use getFinals to do the following:
@@ -24,10 +26,10 @@ Use getFinals to do the following:
 hint - you should be looking at the stage key inside of the objects
 */
 
-function getFinals(/* code here */) {
-   /* code here */
+function getFinals(data) {
+   return data.filter(i => i.Stage === 'Final');
 }
-
+getFinals(fifaData)
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -36,10 +38,10 @@ Use the higher-order function called getYears to do the following:
 2. Receive a callback function getFinals from task 2 
 3. Return an array called years containing all of the years in the getFinals data set*/
 
-function getYears(/* code here */) {
-    /* code here */
+function getYears(data, finals) {
+    return finals(data).map(i => i['Year'])
 }
-
+getYears(fifaData, getFinals)
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 4: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -49,10 +51,16 @@ Use the higher-order function getWinners to do the following:
 3. Determines the winner (home or away) of each `finals` game. 
 4. Returns the names of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
-    /* code here */
+function getWinners(data, finals) {
+    return finals(data).map(i => {
+        if (i['Home Team Goals'] > i['Away Team Goals']) {
+            return i['Home Team Name']
+        } else {
+            return i['Away Team Name']
+        }
+    })
 }
-
+getWinners(fifaData, getFinals)
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 5: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 

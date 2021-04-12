@@ -73,10 +73,12 @@ Use the higher-order function getWinnersByYear to do the following:
 hint: the strings returned need to exactly match the string in step 4.
  */
 
-function getWinnersByYear(/* code here */) {
-    /* code here */
+function getWinnersByYear(data, years, winners) {
+    let winnerYear = years(data, getFinals);
+    let winnersCountry = winners(data, getFinals);
+    return winnerYear.map ((i, index) => `In ${winnerYear[index]}, ${winnersCountry[index]} won the world cup!`)
 }
-
+getWinnersByYear(fifaData, getYears, getWinners)
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -89,10 +91,14 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-   /* code here */
+function getAverageGoals(finals) {
+   //console.log(finals);
+    let totals = finals.reduce((total, index) => {
+        return total + index['Home Team Goals'] + index['Away Team Goals'];
+    }, 0);
+    return (totals / finals.length).toFixed(2)
 }
-
+getAverageGoals(getFinals(fifaData))
 
 
 
